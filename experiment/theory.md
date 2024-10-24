@@ -1,60 +1,56 @@
 ## Theory
-**Introduction:**  
-The boundary between accumulation and depletion is the flat-band voltage and the boundary between depletion and inversion is the threshold voltage.
+A PN diode is a semiconductor device that allows current to flow in one direction only. It is formed by joining a P-type semiconductor and an N-type semiconductor. The IV (current-voltage) characteristics of a PN diode describe how the current through the diode varies with the applied voltage.
 
-![](./images/tvic.jpg)  
-**Fig. 1. Threshold Voltage and Inversion charge**
+Forward Bias Characteristics
+----------------------------
+
+When a PN diode is forward-biased (positive voltage applied to the P-type side and negative voltage to the N-type side), the diode conducts current. The IV characteristics in this region show a small current flow at first, but as the applied voltage increases, the current rises exponentially. This is due to the reduction in the barrier potential, allowing charge carriers to cross the junction more easily.
+
+The diode starts to conduct significantly when the forward voltage exceeds a certain threshold, typically around 0.7V for silicon diodes and 0.3V for germanium diodes.
+
+Reverse Bias Characteristics
+----------------------------
+
+In reverse bias (positive voltage applied to the N-type side and negative voltage to the P-type side), the diode blocks current flow. The IV characteristics show a very small leakage current in this region, which remains nearly constant regardless of the applied reverse voltage. If the reverse voltage exceeds a certain value known as the breakdown voltage, the diode will start to conduct heavily in reverse, which is called breakdown. This is not ideal for standard diodes as it can damage the device.
+
+Summary
+-------
+
+The IV characteristics of a PN diode exhibit:
+
+*   **Forward Bias:** Exponential increase in current with increasing voltage after a threshold voltage.
+*   **Reverse Bias:** Minimal leakage current until breakdown voltage is reached.
+
+Understanding these characteristics is crucial for designing and analyzing circuits involving diodes, ensuring they function correctly within their intended applications.
+
+<img src="images/FET.png"  />
+
+**Fig. 1. Junction Diode Symbol and Static I-V Characteristics**
 
   
 
-### MOS Capacitor's three regimes-Accumulation, Depletion, Inversion
+The current-voltage characteristic of a diode is described by the diode equation,
 
-A MOS Capacitor can be in three regimes: accumulation, depletion, and inversion [1,2]. The boundary between accumulation and depletion is the flat-band voltage, and the boundary between depletion and inversion is the threshold voltage. The flat-band voltage, denoted as $$V_{fb}$$ or $$V_{bi}$$, is defined as $$\phi_m - \phi_s$$, where $$\phi_m$$ is the work function of the metal and $$\phi_s$$ is the work function of the semiconductor substrate.
+$$ I = I\_S\\left(\\exp\\left(\\frac{eV}{\\eta k\_BT}\\right) - 1\\right)\\hspace{0.5cm}\\text{\[A\]}.$$
 
-At the flat-band voltage, the bands are flat, resulting in an electric field of zero throughout the semiconductor. The hole concentration $$p$$ equals the acceptor concentration, and the charge density $$\rho$$ is zero.
+Where I is the current, $$I_S$$ is the saturatuion current, eee is the charge of an electron, V is the voltage, $$k_B$$ is Boltzmann's constant, ηη\\eta is the nonideality factor and T is the absolute temperature. For a real diode there is always a resistance $$R_S$$ in series. This modifies the diode equation to,
 
-Accumulation occurs when the gate voltage $$V$$ is negative, attracting holes to the oxide interface. This causes the valence band to bend up towards the Fermi energy, increasing the hole concentration $$p$$ near the oxide interface. The Fermi energy in the metal (represented by the black line on the left in the band diagram) moves up for negative voltages, indicating an increase in electron energy.
+$$I = I\_S\\left(\\exp\\left(\\frac{e(V-IR\_S)}{\\eta k\_BT}\\right) - 1\\right)\\hspace{0.5cm}\\text{\[A\]}.$$
 
-In the depletion regime, a positive gate voltage pushes mobile holes away from the oxide, leaving negatively charged acceptors behind. The valence band bends away from the Fermi energy at the oxide, resulting in a lower hole concentration near the oxide. The negative charge in the semiconductor is balanced by a positive charge on the metal surface, as indicated by the charge plot arrow. As the gate voltage increases positively, the depletion width grows, and the bands bend further down. Eventually, the conduction band gets closer to the Fermi energy than the valence band, leading to weak inversion where $$n > p$$ near the oxide. Strong inversion occurs when $$n = N_A$$ (acceptor concentration) at the oxide interface, at the threshold voltage $$V_T$$.
+This complicates the calculation since I now appears on both sides of the equation. However, such equations can be solved numerically, for instance by using a binary search. For a long diode, the saturation current can be written as,
 
-At $$V > V_T$$, an inversion channel forms at the semiconductor/oxide interface, characterized by a layer of mobile electrons. In the inversion state, the electric field in the semiconductor remains constant, while it increases within the oxide layer.
+$$ I\_S = Aen\_i^2\\left(\\frac{D\_p}{L\_pN\_d} + \\frac{D\_n}{L\_nN\_a}\\right).$$
 
-### Determining the band bending
+Here A is the area of the diode perpendicular to the current flow, $$n_i$$ is the intrinsic carrier concentration, NdNdN\_d is the donor concentration, $$N_a$$ is the acceptor concentration, $$D_n$$ is the diffusion constant for electrons, $$D_p$$ is the diffusion constant for holes, $$L\_n=\\sqrt{D\_n\\tau\_n}$$ is the diffusion length for electrons, $$L\_p=\\sqrt{D\_p\\tau\_p}$$ is the diffusion constant for holes, $$\tau_n$$ is the minority carrier lifetime for electrons, and $$\tau_p$$ is the minority carrier lifetime for holes. The derivation of the saturation current assumes that the dominant current mechanism is diffusion as it is in forward bias. While this equation describes forward bias well, the measured diode current in reverse bias often differs significantly from $$-I_S$$.
 
-To calculate the band bending, we start with Gauss's law,
+The intrinsic carrier density is a strong function of temperature,
 
-$$\\begin{equation} \\nabla \\cdot \\vec{E} = \\frac{\\rho}{\\epsilon\_s\\epsilon\_0}. \\end{equation}$$
+$$ n\_i=\\sqrt{N\_c\\left(\\frac{T}{300}\\right)^{3/2}N\_v\\left(\\frac{T}{300}\\right)^{3/2}}\\exp\\left(\\frac{-E\_g}{2k\_BT}\\right).$$
 
-$$Combining \ this \ with \ \\vec{E}=-\\nabla V \ yields \ the \ Poisson \ equation,$$
+Here $$N_c$$ is the effective density of states in the conduction band at 300 K, NvNvN\_v is the effective density of states in the valence band at 300 K, and $$E_g$$ is the band gap. The temperture dependence of the band gap can be input into the form below. The diffusion constants are related to the mobilities by the Einstein relation,
 
-$$\\begin{equation} \\nabla^2V = -\\frac{\\rho}{\\epsilon\_s\\epsilon\_0}, \\end{equation}$$
+$$ D\_n=\\frac{\\mu\_nk\_BT}{e}\\hspace{1.5cm}D\_p=\\frac{\\mu\_pk\_BT}{e},$$
 
-where, for a MOS capacitor with a p-type substrate, the charge density is 
-$$\\rho = e\\left(-N\_A-n+p\\right)$$ and the charge carrier concentrations are,
-
-
-$$\\begin{equation} n=N\_c(300)\\left(\\frac{T}{300}\\right)^{3/2}\\exp\\left(\\frac{E\_F-E\_c}{k\_BT}\\right)\\qquad \\text{and}\\qquad p=N\_v(300)\\left(\\frac{T}{300}\\right)^{3/2}\\exp\\left(\\frac{E\_v-E\_F}{k\_BT}\\right). \\end{equation}$$
-
-Using the relation $$e\\frac{dV}{dx} = -\\frac{E\_v}{dx}$$ the Poisson equation can be written as a second order differential equation for $$E_v(x)$$,
-
-$$ \\begin{equation} \\frac{d^2E\_v}{dx^2} = \\frac{e^2}{\\epsilon\_s\\epsilon\_0}\\left(-N\_A-N\_c\\exp\\left(\\frac{-E\_g-E\_v}{k\_BT}\\right)+N\_v\\exp\\left(\\frac{E\_v}{k\_BT}\\right)\\right). \\end{equation}$$
-
-### Numerical
-
-This differential equation was solved numerically using the shooting method [3]. First the maximum depletion width $$max(x_p)$$ and the threshold voltage $$V_T$$ are estimated using the analytic formulas from the depletion approximation.
-
-
-
-$$\\begin{equation} x\_p = 2\\sqrt{\\frac{\\epsilon\_{\\text{semi}}\\epsilon\_0 k\_BT}{e^2N\_A}\\ln\\left(\\frac{N\_A}{n\_i}\\right)}. \\end{equation}$$ 
-
-$$\\begin{equation} V\_T = \\frac{2t\_{ox}}{\\epsilon\_{ox}}\\sqrt{\\epsilon\_{\\text{semi}}N\_Ak\_BT \\ln \\left (\\frac{N\_A}{n\_i} \\right )} +\\frac{2k\_BT}{e} \\ln \\left (\\frac{N\_A}{n\_i} \\right ) +V\_{fb} \\end{equation}$$
-
-Far from the oxide, the valence band satisfies the conditions $$E_v=k_BTln(N_AN_v)=E_{v0}E_v=k_BTln⁡(\frac{N_A}{N_v})=E_{v0}$$ and $$dE_vdx=0\frac{dE_v}{dx}=0$$. To determine the band bending, we start a distance of $$1.8x_p$$ from the oxide with $$E\_{v} = k\_BT\\ln\\left(\\frac{N\_A}{N\_v}\\right)=E\_{v0}$$ and a small value of $$dE_vdx=0\frac{dE_v}{dx}=0$$. The Poisson equation is integrated numerically using the midpoint method until the semiconductor oxide interface. This gives us the voltage $$V_s$$ at the semiconductor/oxide interface and the electric field $$E_s$$ at that point. The voltage on the gate is,
-
-
-$$\\begin{equation} V = \\frac{\\epsilon\_{\\text{semi}}E\_s}{\\epsilon\_{\\text{ox}}}t\_{\\text{ox}}+V\_s. \\end{equation}$$
-
-This is the correct gate voltage for the boundary conditions we chose on the right, but generally, it may not be the desired gate voltage. The starting position of integration is then adjusted either to the right or left, and the integration process is repeated until the calculated voltage, obtained through numerical integration, matches $$V_{shoot}$$. The simulation produces incorrect results if the valence band or conduction band approach within approximately $$3k_BT$$ from the Fermi energy. This limitation arises because the formulas for nnn and ppp are valid only when the valence and conduction bands are sufficiently far from the Fermi energy.
-
+where $$\mu_n$$ is the mobility of the electrons and $$\mu_p$$ is the mobility of the holes.
  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>    
  
