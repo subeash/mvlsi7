@@ -5,5 +5,5 @@ The IV characteristics of a PN junction diode experiment is to analyze the curre
 *   Observe and record the exponential increase in current with increasing forward voltage.
 *   Measure the leakage current in the reverse bias condition.
 *   Identify the breakdown voltage where significant current flows in the reverse direction.
-*   Understand the practical implications of the diode's IV characteristics in electronic circuit design and analysis.
+*   Understand the practical implications of the diode's IV characteristics in electronic circuit design and analysis. Through this experiment, students and professionals will reinforce their understanding of the theoretical concepts governing diode operation.
 
