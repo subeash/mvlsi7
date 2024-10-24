@@ -1,1 +1,1 @@
-## PMOS Capacitor Band Diagram &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <img src="images/iitkgp.png" width="3%" />
+## IV characteristics of a PN junction diode &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <img src="images/iitkgp.png" width="3%" />
